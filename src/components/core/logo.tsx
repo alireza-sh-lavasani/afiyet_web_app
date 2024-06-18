@@ -18,16 +18,10 @@ export interface LogoProps {
   width?: number;
 }
 
-export function Logo({ color = 'dark', emblem, height = HEIGHT, width = WIDTH }: LogoProps): React.JSX.Element {
-  let url: string;
+export function Logo({ height = HEIGHT, width = WIDTH }: LogoProps): React.JSX.Element {
+  const url = '/assets/afiyet.png';
 
-  if (emblem) {
-    url = color === 'light' ? '/assets/logo-emblem.svg' : '/assets/logo-emblem--dark.svg';
-  } else {
-    url = color === 'light' ? '/assets/logo.svg' : '/assets/logo--dark.svg';
-  }
-
-  return <Box alt="logo" component="img" height={height} src={url} width={width} />;
+  return <Box alt="logo" component="img" height={height} src={url} width={width} sx={{ borderRadius: '100%' }} />;
 }
 
 export interface DynamicLogoProps {
@@ -50,7 +44,7 @@ export function DynamicLogo({
 
   return (
     <NoSsr fallback={<Box sx={{ height: `${height}px`, width: `${width}px` }} />}>
-      <Logo color={color} height={height} width={width} {...props} />
+      <Logo color={color} height={height} width={width} {...props} sx={{ borderRadius: '100%' }} />
     </NoSsr>
   );
 }
