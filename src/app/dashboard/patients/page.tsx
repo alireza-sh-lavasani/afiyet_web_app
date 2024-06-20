@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import type { Metadata } from 'next';
 import { usePatientService } from '@/services/usePatientService';
@@ -10,19 +12,30 @@ import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 // import { Upload as UploadIcon } from '@phosphor-icons/react/dist/ssr/Upload';
 import dayjs from 'dayjs';
 
-import { config } from '@/config';
+// import { config } from '@/config';
 
-export const metadata = { title: `Patients | Dashboard | ${config.site.name}` } satisfies Metadata;
+// export const metadata = { title: `Patients | Dashboard | ${config.site.name}` } satisfies Metadata;
 
-export default async function Page() {
+export default function Page() {
   const { getAllPatients } = usePatientService();
 
-  let patients = await getAllPatients();
-  patients = patients.map(({ birthDate, ...patient }, index) => ({
-    id: index,
-    birthDate: dayjs(birthDate as string).format('YYYY-MM-DD'),
-    ...patient,
-  }));
+  const [patients, setPatients] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchPatients = async () => {
+      let formattedData = await getAllPatients();
+      // @ts-expect-error TODO fix later
+      formattedData = patients.map(({ birthDate, ...patient }, index) => ({
+        id: index,
+        birthDate: dayjs(birthDate as string).format('YYYY-MM-DD'),
+        ...patient,
+      }));
+
+      setPatients(formattedData);
+    };
+
+    fetchPatients();
+  }, []);
 
   // Table Columns
   const columns: GridColDef[] = [

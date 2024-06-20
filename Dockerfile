@@ -34,7 +34,9 @@ WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
 
 # Copy the build artifact to the dist folder
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/.next ./.next
+
+COPY package.json ./package.json
 
 # Start the server using the deployment build
-CMD [ "npm", "run" "start" ]
+CMD [ "npm", "run", "start" ]
