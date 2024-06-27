@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { beautifyId } from '@aafiat/common';
 import { Grid } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -112,5 +113,3 @@ export function PatientProfileCard({ patient }): React.JSX.Element {
     </Card>
   );
 }
-
-const beautifyId = (id) => `${id.slice(0, 2)}-${id.slice(2, 10)}-${id.slice(10)}`;

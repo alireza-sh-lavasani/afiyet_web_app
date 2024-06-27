@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { beautifyId } from '@aafiat/common';
 import { Avatar, Button, Chip, Stack, Typography } from '@mui/material';
 import { DataGrid, GridToolbar, type GridColDef } from '@mui/x-data-grid';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
@@ -15,7 +16,7 @@ function PatientsList({ patients }) {
       field: 'patientId',
       headerName: 'Patient ID',
       width: 200,
-      renderCell: (params) => <BeautifyID {...params} />,
+      renderCell: (params) => <span>{beautifyId(params.value)}</span>,
     },
     {
       field: 'birthDate',
@@ -27,7 +28,7 @@ function PatientsList({ patients }) {
       field: 'tmpPatientId',
       headerName: 'Temporary Patient ID',
       width: 200,
-      renderCell: (params) => <BeautifyID {...params} />,
+      renderCell: (params) => <span>{beautifyId(params.value)}</span>,
     },
   ];
 
@@ -59,6 +60,9 @@ function PatientsList({ patients }) {
         slotProps={{
           toolbar: {
             showQuickFilter: true,
+            quickFilterProps: {
+              helperText: "Search anything. For patient IDs don't include -",
+            },
           },
         }}
         initialState={{
@@ -78,16 +82,6 @@ function PatientsList({ patients }) {
 }
 
 export default PatientsList;
-
-const BeautifyID = (params) => {
-  const id: string = params.value;
-
-  return (
-    <span>
-      {id.slice(0, 2)}-{id.slice(2, 10)}-{id.slice(10)}
-    </span>
-  );
-};
 
 const FormatDate = (params) => {
   const birthDate = params.value;
