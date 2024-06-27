@@ -1,21 +1,28 @@
 import * as React from 'react';
 import type { Metadata } from 'next';
-import { useRouter } from 'next/router';
 import { usePatientService } from '@/services/usePatientService';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import { config } from '@/config';
-import { AccountDetailsForm } from '@/components/dashboard/account/account-details-form';
-import { AccountInfo } from '@/components/dashboard/account/account-info';
+import { ExaminationsList } from '@/components/dashboard/examinations/ExaminationsList';
 import { PatientProfileCard } from '@/components/dashboard/patients/PatientProfileCard';
 
-export const metadata = { title: `Account | Dashboard | ${config.site.name}` } satisfies Metadata;
+export const metadata = { title: `Patient Info Page | Dashboard | ${config.site.name}` } satisfies Metadata;
 
 export default async function PatientVisitsPage({ params: { patientId } }) {
-  const { getPatientById } = usePatientService();
+  const { getPatientById, getAllPatientExaminations } = usePatientService();
+
+  // Get patient data
   const patient = await getPatientById(patientId);
+
+  // Get examination data and adjust it for datagrid
+  let examinations = await getAllPatientExaminations(patientId);
+  examinations = examinations.map((examination) => ({
+    id: examination.examinationId,
+    ...examination,
+  }));
 
   return (
     <Stack spacing={3}>
@@ -27,7 +34,7 @@ export default async function PatientVisitsPage({ params: { patientId } }) {
           <PatientProfileCard patient={patient} />
         </Grid>
         <Grid lg={12} md={12} xs={12}>
-          <AccountDetailsForm />
+          <ExaminationsList examinations={examinations} />
         </Grid>
       </Grid>
     </Stack>

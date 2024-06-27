@@ -9,6 +9,7 @@ export const metadata = { title: `Patients | Dashboard | ${config.site.name}` } 
 export default async function Page() {
   const { getAllPatients } = usePatientService();
 
+  // Get patients data and adjust it for data grid
   let patients = await getAllPatients();
   patients = patients.map((patient) => ({
     id: patient.patientId || patient.tmpPatientId,

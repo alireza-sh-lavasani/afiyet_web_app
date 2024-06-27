@@ -12,14 +12,12 @@ import Typography from '@mui/material/Typography';
 import dayjs from 'dayjs';
 
 export function PatientProfileCard({ patient }): React.JSX.Element {
-  console.log({ patient });
-
   return (
     <Card>
       <CardContent>
         <Stack spacing={2} sx={{ alignItems: 'center' }}>
           <div>
-            <Avatar src={'/assets/avatar.png'} sx={{ height: '80px', width: '80px' }} />
+            <Avatar src="/assets/avatar.png" sx={{ height: '80px', width: '80px' }} />
           </div>
           <Stack spacing={1} sx={{ textAlign: 'center' }}>
             <Typography variant="h5">{patient.fullName}</Typography>

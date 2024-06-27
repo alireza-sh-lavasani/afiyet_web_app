@@ -13,6 +13,9 @@ export const usePatientService = () => {
     }
   };
 
+  /**************************************
+   ******** Get patient by id
+   *************************************/
   const getPatientById = async (patientId: string) => {
     try {
       const { data } = await appBackend.get(`/patient/${patientId}`);
@@ -22,8 +25,34 @@ export const usePatientService = () => {
     }
   };
 
+  /**************************************
+   ******** Get all examinations of a patient
+   *************************************/
+  const getAllPatientExaminations = async (patientId: string) => {
+    try {
+      const { data } = await appBackend.get(`/patient/${patientId}/examination`);
+      return data;
+    } catch (error) {
+      console.error(`[Patient Service] Failed to fetch list of examinations for patient with id: ${patientId}`);
+    }
+  };
+
+  /**************************************
+   ******** Get examination by id
+   *************************************/
+  const getExaminationById = async (examinationId: string) => {
+    try {
+      const { data } = await appBackend.get(`/examination/${examinationId}`);
+      return data;
+    } catch (error) {
+      console.error(`[Patient Service] Failed to fetch examination with id: ${examinationId}`);
+    }
+  };
+
   return {
     getAllPatients,
     getPatientById,
+    getAllPatientExaminations,
+    getExaminationById,
   };
 };
