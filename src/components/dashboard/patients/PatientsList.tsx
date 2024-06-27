@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Button, Stack, Typography } from '@mui/material';
+import Link from 'next/link';
+import { Avatar, Button, Chip, Stack, Typography } from '@mui/material';
 import { DataGrid, GridToolbar, type GridColDef } from '@mui/x-data-grid';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import dayjs from 'dayjs';
@@ -9,13 +10,13 @@ import dayjs from 'dayjs';
 function PatientsList({ patients }) {
   // Table Columns
   const columns: GridColDef[] = [
+    { field: 'fullName', headerName: 'Full Name', width: 350, renderCell: (params) => <NameLinkButton {...params} /> },
     {
       field: 'patientId',
       headerName: 'Patient ID',
       width: 200,
       renderCell: (params) => <BeautifyID {...params} />,
     },
-    { field: 'fullName', headerName: 'Full Name', width: 350 },
     {
       field: 'birthDate',
       headerName: 'Brith Date',
@@ -91,4 +92,20 @@ const BeautifyID = (params) => {
 const FormatDate = (params) => {
   const birthDate = params.value;
   return <span>{dayjs(birthDate as string).format('DD MMM YYYY')}</span>;
+};
+
+const NameLinkButton = (params) => {
+  const { gender, patientId, tmpPatientId } = params.row;
+  const isMail = String(gender).toLowerCase() === 'male';
+
+  return (
+    <Link style={{ textDecoration: 'none', color: 'black' }} href={`/dashboard/patients/${patientId || tmpPatientId}`}>
+      <Chip
+        avatar={<Avatar alt="Natacha" src="/assets/avatar-1.png" />}
+        label={params.value}
+        variant={isMail ? 'outlined' : 'filled'}
+        style={{ backgroundColor: isMail ? 'none' : 'mistyrose' }}
+      />
+    </Link>
+  );
 };
