@@ -17,7 +17,7 @@ export function PatientProfileCard({ patient }): React.JSX.Element {
       <CardContent>
         <Stack spacing={2} sx={{ alignItems: 'center' }}>
           <div>
-            <Avatar src="/assets/avatar.png" sx={{ height: '80px', width: '80px' }} />
+            <Avatar src="/assets/generic-user.png" sx={{ height: '80px', width: '80px' }} />
           </div>
           <Stack spacing={1} sx={{ textAlign: 'center' }}>
             <Typography variant="h5">{patient.fullName}</Typography>

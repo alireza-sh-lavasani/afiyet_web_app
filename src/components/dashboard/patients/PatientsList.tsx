@@ -3,10 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { beautifyId } from '@aafiat/common';
-import { Avatar, Button, Chip, Stack, Typography } from '@mui/material';
+import { Button, Chip, Stack, Typography } from '@mui/material';
 import { DataGrid, GridToolbar, type GridColDef } from '@mui/x-data-grid';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import dayjs from 'dayjs';
+import { User } from '@phosphor-icons/react'
 
 function PatientsList({ patients }) {
   // Table Columns
@@ -95,7 +96,7 @@ const NameLinkButton = (params) => {
   return (
     <Link style={{ textDecoration: 'none', color: 'black' }} href={`/dashboard/patients/${patientId || tmpPatientId}`}>
       <Chip
-        avatar={<Avatar alt="Natacha" src="/assets/avatar-1.png" />}
+        avatar={<User />}
         label={params.value}
         variant={isMail ? 'outlined' : 'filled'}
         style={{ backgroundColor: isMail ? 'none' : 'mistyrose' }}

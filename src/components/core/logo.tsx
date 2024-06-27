@@ -19,9 +19,9 @@ export interface LogoProps {
 }
 
 export function Logo({ height = HEIGHT, width = WIDTH }: LogoProps): React.JSX.Element {
-  const url = '/assets/afiyet.png';
+  const url = '/assets/afiyet_logo.png';
 
-  return <Box alt="logo" component="img" height={height} src={url} width={width} sx={{ borderRadius: '100%' }} />;
+  return <Box alt="logo" component="img" height={height} src={url} width={width} />;
 }
 
 export interface DynamicLogoProps {
