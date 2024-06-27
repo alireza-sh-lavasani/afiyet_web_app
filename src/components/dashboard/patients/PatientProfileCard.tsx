@@ -31,6 +31,26 @@ export function PatientProfileCard({ patient }): React.JSX.Element {
       <Grid container sx={{ width: '100%', padding: '2em' }} spacing={3}>
         <Grid container alignItems="center" xs={12} md={6} lg={4} item>
           <Typography color="text.secondary" variant="body2" sx={{ marginRight: '1em' }}>
+            Patient ID:
+          </Typography>
+          <Typography color="text.primary" variant="subtitle2">
+            {beautifyId(patient.patientId) || '-'}
+          </Typography>
+        </Grid>
+
+        <Grid container alignItems="center" xs={12} md={6} lg={4} item>
+          <Typography color="text.secondary" variant="body2" sx={{ marginRight: '1em' }}>
+            Temporary Patient ID:
+          </Typography>
+          <Typography color="text.primary" variant="subtitle2">
+            {beautifyId(patient.tmpPatientId) || '-'}
+          </Typography>
+        </Grid>
+
+        <Grid container alignItems="center" xs={12} md={6} lg={4} item />
+
+        <Grid container alignItems="center" xs={12} md={6} lg={4} item>
+          <Typography color="text.secondary" variant="body2" sx={{ marginRight: '1em' }}>
             Gender:
           </Typography>
           <Typography color="text.primary" variant="subtitle2">
@@ -92,3 +112,5 @@ export function PatientProfileCard({ patient }): React.JSX.Element {
     </Card>
   );
 }
+
+const beautifyId = (id) => `${id.slice(0, 2)}-${id.slice(2, 10)}-${id.slice(10)}`;
