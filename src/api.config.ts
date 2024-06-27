@@ -1,13 +1,16 @@
 import axios from 'axios';
 
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 // Create an instance of Axios
 export const appBackend = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  baseURL,
 });
 
 // Add a request interceptor
 appBackend.interceptors.request.use(
   (config) => {
+    console.log(`Calling backend on: ${baseURL}`);
     // const token = 'your-auth-token';
     // if (token) {
     //   config.headers.Authorization = `Bearer ${token}`;

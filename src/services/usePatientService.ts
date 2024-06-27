@@ -1,4 +1,4 @@
-import { appBackend } from '@/api/api.config';
+import { appBackend } from '@/api.config';
 
 export const usePatientService = () => {
   /**************************************

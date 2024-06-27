@@ -66,6 +66,7 @@ module.exports = {
     '@typescript-eslint/restrict-template-expressions': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
+    'react/function-component-definition': 'off',
     'unicorn/filename-case': 'off',
     'no-console': 'off',
   },
