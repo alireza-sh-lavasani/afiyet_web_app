@@ -1,7 +1,8 @@
 'use client';
 
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePatientService } from '@/services/usePatientService';
 import { type IExamination } from '@aafiat/common';
 import { Chip } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -15,7 +16,28 @@ import { Eye } from '@phosphor-icons/react/dist/ssr';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import dayjs from 'dayjs';
 
-export function ExaminationsList({ examinations }: { examinations: IExamination[] }): React.JSX.Element {
+import Loading from '@/components/Loading';
+
+export function ExaminationsList({ patientId }): React.JSX.Element {
+  // TODO Refactor the data fetching mess
+
+  const { getAllPatientExaminations } = usePatientService();
+  const [examinations, setExaminations] = useState<IExamination[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      // Get examination data and adjust it for datagrid
+      let examinationsList = await getAllPatientExaminations(patientId);
+      examinationsList = examinationsList.map((examination) => ({
+        id: examination.examinationId,
+        ...examination,
+      }));
+      setExaminations(examinationsList);
+    })();
+  }, []);
+
+  if (!examinations?.length) return <Loading />;
+
   // Table Columns
   const columns: GridColDef[] = [
     {

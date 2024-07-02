@@ -1,17 +1,34 @@
-import * as React from 'react';
-import { beautifyId } from '@aafiat/common';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { usePatientService } from '@/services/usePatientService';
+import { beautifyId, type IPatient } from '@aafiat/common';
 import { Grid } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import dayjs from 'dayjs';
 
-export function PatientProfileCard({ patient }): React.JSX.Element {
+import Loading from '@/components/Loading';
+
+export function PatientProfileCard({ patientId }): React.JSX.Element {
+  // TODO Refactor the data fetching mess
+
+  const { getPatientById } = usePatientService();
+  const [patient, setPatient] = useState<IPatient>();
+
+  useEffect(() => {
+    (async () => {
+      // Get patient data
+      setPatient(await getPatientById(patientId));
+    })();
+  }, []);
+
+  if (!patient) return <Loading />;
+
   return (
     <Card>
       <CardContent>
@@ -33,7 +50,7 @@ export function PatientProfileCard({ patient }): React.JSX.Element {
             Patient ID:
           </Typography>
           <Typography color="text.primary" variant="subtitle2">
-            {beautifyId(patient.patientId) || '-'}
+            {(patient.patientId && beautifyId(patient.patientId)) || '-'}
           </Typography>
         </Grid>
 
@@ -42,7 +59,7 @@ export function PatientProfileCard({ patient }): React.JSX.Element {
             Temporary Patient ID:
           </Typography>
           <Typography color="text.primary" variant="subtitle2">
-            {beautifyId(patient.tmpPatientId) || '-'}
+            {(patient.tmpPatientId && beautifyId(patient.tmpPatientId)) || '-'}
           </Typography>
         </Grid>
 
@@ -71,7 +88,7 @@ export function PatientProfileCard({ patient }): React.JSX.Element {
             Birth Date:
           </Typography>
           <Typography color="text.primary" variant="subtitle2">
-            {dayjs(patient.birthDate as string).format('DD MMM YYYY')}
+            {dayjs(patient.birthDate).format('DD MMM YYYY')}
           </Typography>
         </Grid>
 

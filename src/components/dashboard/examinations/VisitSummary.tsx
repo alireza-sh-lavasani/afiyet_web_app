@@ -1,8 +1,27 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { usePatientService } from '@/services/usePatientService';
 import { type IExamination } from '@aafiat/common';
 import { Card, CardContent, Grid, Stack, Typography } from '@mui/material';
 
-const VisitSummary = ({ examination }: { examination: IExamination }) => {
+import Loading from '@/components/Loading';
+
+const VisitSummary = ({ examinationId }) => {
+  // TODO Refactor the data fetching mess
+
+  const { getExaminationById } = usePatientService();
+  const [examination, setExamination] = useState<IExamination>();
+
+  useEffect(() => {
+    (async () => {
+      // Get patients data and adjust it for data grid
+      setExamination(await getExaminationById(examinationId));
+    })();
+  }, []);
+
+  if (!examination) return <Loading />;
+
   return (
     <Stack>
       {/* Location Card */}

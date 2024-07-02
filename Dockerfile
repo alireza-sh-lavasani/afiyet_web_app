@@ -38,5 +38,8 @@ COPY --from=builder /app/.next ./.next
 
 COPY package.json ./package.json
 
+# Copy assets folder
+COPY public ./public
+
 # Start the server using the deployment build
 CMD [ "npm", "run", "start" ]

@@ -1,15 +1,35 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { beautifyId } from '@aafiat/common';
+import { usePatientService } from '@/services/usePatientService';
+import { beautifyId, type IPatient } from '@aafiat/common';
 import { Button, Chip, Stack, Typography } from '@mui/material';
 import { DataGrid, GridToolbar, type GridColDef } from '@mui/x-data-grid';
+import { Spinner, User } from '@phosphor-icons/react';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import dayjs from 'dayjs';
-import { User } from '@phosphor-icons/react'
+import Loading from '@/components/Loading'
 
-function PatientsList({ patients }) {
+// function PatientsList({ patients }) {
+function PatientsList() {
+  const { getAllPatients } = usePatientService();
+  const [patients, setPatients] = useState<IPatient[]>();
+
+  // TODO Refactor the data fetching mess later
+  useEffect(() => {
+    (async () => {
+      let patientsList = await getAllPatients();
+      patientsList = patientsList.map((patient) => ({
+        id: patient.patientId || patient.tmpPatientId,
+        ...patient,
+      }));
+      setPatients(patientsList);
+    })();
+  }, []);
+
+  if (!patients) return <Loading />;
+
   // Table Columns
   const columns: GridColDef[] = [
     { field: 'fullName', headerName: 'Full Name', width: 350, renderCell: (params) => <NameLinkButton {...params} /> },

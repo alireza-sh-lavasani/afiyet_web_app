@@ -1,9 +1,23 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { usePatientService } from '@/services/usePatientService';
 import { type IExamination } from '@aafiat/common';
 import { Card, CardContent, Divider, Grid, Icon, Stack, Typography } from '@mui/material';
 import { Check } from '@phosphor-icons/react/dist/ssr';
 
-const SymptomsList = ({ examination }: { examination: IExamination }) => {
+const SymptomsList = ({ examinationId }) => {
+  // TODO Refactor the data fetching mess
+  const { getExaminationById } = usePatientService();
+  const [examination, setExamination] = useState<IExamination>();
+
+  useEffect(() => {
+    (async () => {
+      // Get patients data and adjust it for data grid
+      setExamination(await getExaminationById(examinationId));
+    })();
+  }, []);
+
   const symptomGroups = [
     {
       title: 'General Symptoms',

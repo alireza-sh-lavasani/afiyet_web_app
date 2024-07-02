@@ -1,15 +1,17 @@
 import { appBackend } from '@/api.config';
+import { type IPatient } from '@aafiat/common';
 
 export const usePatientService = () => {
   /**************************************
    ******** Get all patients
    *************************************/
-  const getAllPatients = async () => {
+  const getAllPatients = async (): Promise<IPatient[]> => {
     try {
       const { data } = await appBackend.get('/patient');
       return data;
     } catch (error) {
       console.error(`[Patient Service] Failed to fetch patients`);
+      return [];
     }
   };
 

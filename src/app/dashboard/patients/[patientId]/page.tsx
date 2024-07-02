@@ -12,17 +12,17 @@ import { PatientProfileCard } from '@/components/dashboard/patients/PatientProfi
 export const metadata = { title: `Patient Info Page | Dashboard | ${config.site.name}` } satisfies Metadata;
 
 export default async function PatientVisitsPage({ params: { patientId } }) {
-  const { getPatientById, getAllPatientExaminations } = usePatientService();
+  // const { getPatientById, getAllPatientExaminations } = usePatientService();
 
-  // Get patient data
-  const patient = await getPatientById(patientId);
+  // // Get patient data
+  // const patient = await getPatientById(patientId);
 
-  // Get examination data and adjust it for datagrid
-  let examinations = await getAllPatientExaminations(patientId);
-  examinations = examinations.map((examination) => ({
-    id: examination.examinationId,
-    ...examination,
-  }));
+  // // Get examination data and adjust it for datagrid
+  // let examinations = await getAllPatientExaminations(patientId);
+  // examinations = examinations.map((examination) => ({
+  //   id: examination.examinationId,
+  //   ...examination,
+  // }));
 
   return (
     <Stack spacing={3}>
@@ -31,10 +31,10 @@ export default async function PatientVisitsPage({ params: { patientId } }) {
       </div>
       <Grid container spacing={3}>
         <Grid lg={12} md={12} xs={12}>
-          <PatientProfileCard patient={patient} />
+          <PatientProfileCard patientId={patientId} />
         </Grid>
         <Grid lg={12} md={12} xs={12}>
-          <ExaminationsList examinations={examinations} />
+          <ExaminationsList patientId={patientId} />
         </Grid>
       </Grid>
     </Stack>
