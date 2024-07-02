@@ -69,5 +69,7 @@ module.exports = {
     'react/function-component-definition': 'off',
     'unicorn/filename-case': 'off',
     'no-console': 'off',
+    'no-alert': 'off',
+    '@typescript-eslint/no-confusing-void-expression': 'off'
   },
 };

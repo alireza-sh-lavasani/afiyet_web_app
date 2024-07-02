@@ -9,7 +9,8 @@ import { DataGrid, GridToolbar, type GridColDef } from '@mui/x-data-grid';
 import { Spinner, User } from '@phosphor-icons/react';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import dayjs from 'dayjs';
-import Loading from '@/components/Loading'
+
+import Loading from '@/components/Loading';
 
 // function PatientsList({ patients }) {
 function PatientsList() {
@@ -68,7 +69,11 @@ function PatientsList() {
           </Stack>
         </Stack>
         <div>
-          <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} variant="contained">
+          <Button
+            onClick={() => alert('Coming Soon ...')}
+            startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />}
+            variant="contained"
+          >
             Add New Patient
           </Button>
         </div>

@@ -93,7 +93,11 @@ export function ExaminationsList({ patientId }): React.JSX.Element {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} variant="contained">
+          <Button
+            onClick={() => alert('Coming Soon ...')}
+            startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />}
+            variant="contained"
+          >
             Add New Visit
           </Button>
         </CardActions>
