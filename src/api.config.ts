@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-// const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 // Dynamically set the baseURL based on the current host
-let baseURL = '';
-if (typeof window !== 'undefined') {
-  const { protocol, hostname, port } = window.location;
-  baseURL = `${protocol}//${hostname}${port ? `:${port}` : ''}/app-backend`;
-}
+// let baseURL = '';
+// if (typeof window !== 'undefined') {
+//   const { protocol, hostname, port } = window.location;
+//   baseURL = `${protocol}//${hostname}${port ? `:${port}` : ''}/app-backend`;
+// }
 
 // Create an instance of Axios
 export const appBackend = axios.create({

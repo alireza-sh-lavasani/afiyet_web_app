@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+//@ts-nocheck
 'use client';
 
 import React, { useEffect, useState } from 'react';
 import { usePatientService } from '@/services/usePatientService';
-import { beautifyId, type IPatient } from '@aafiat/common';
 import { Grid } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
@@ -18,7 +20,7 @@ export function PatientProfileCard({ patientId }): React.JSX.Element {
   // TODO Refactor the data fetching mess
 
   const { getPatientById } = usePatientService();
-  const [patient, setPatient] = useState<IPatient>();
+  const [patient, setPatient] = useState();
 
   useEffect(() => {
     (async () => {
@@ -50,7 +52,7 @@ export function PatientProfileCard({ patientId }): React.JSX.Element {
             Patient ID:
           </Typography>
           <Typography color="text.primary" variant="subtitle2">
-            {(patient.patientId && beautifyId(patient.patientId)) || '-'}
+            {(patient.patientId && patient.patientId) || '-'}
           </Typography>
         </Grid>
 
@@ -59,7 +61,7 @@ export function PatientProfileCard({ patientId }): React.JSX.Element {
             Temporary Patient ID:
           </Typography>
           <Typography color="text.primary" variant="subtitle2">
-            {(patient.tmpPatientId && beautifyId(patient.tmpPatientId)) || '-'}
+            {(patient.tmpPatientId && patient.tmpPatientId) || '-'}
           </Typography>
         </Grid>
 

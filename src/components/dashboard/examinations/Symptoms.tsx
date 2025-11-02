@@ -2,14 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { usePatientService } from '@/services/usePatientService';
-import { type IExamination } from '@aafiat/common';
 import { Card, CardContent, Divider, Grid, Icon, Stack, Typography } from '@mui/material';
 import { Check } from '@phosphor-icons/react/dist/ssr';
 
 const SymptomsList = ({ examinationId }) => {
   // TODO Refactor the data fetching mess
   const { getExaminationById } = usePatientService();
-  const [examination, setExamination] = useState<IExamination>();
+  const [examination, setExamination] = useState();
 
   useEffect(() => {
     (async () => {
@@ -75,7 +74,7 @@ const SymptomsList = ({ examinationId }) => {
                     {symptoms[symptom]}:
                   </Typography>
                   <Typography variant="subtitle2" color="text.primary">
-                    {examination?.[symptom as keyof IExamination] ? (
+                    {examination?.[symptom] ? (
                       <Check size={22} fontWeight={800} color="mediumvioletred" />
                     ) : (
                       '-'

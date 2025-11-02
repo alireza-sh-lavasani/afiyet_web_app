@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePatientService } from '@/services/usePatientService';
-import { type IExamination } from '@aafiat/common';
 import { Chip } from '@mui/material';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -22,7 +21,7 @@ export function ExaminationsList({ patientId }): React.JSX.Element {
   // TODO Refactor the data fetching mess
 
   const { getAllPatientExaminations } = usePatientService();
-  const [examinations, setExaminations] = useState<IExamination[]>([]);
+  const [examinations, setExaminations] = useState([]);
 
   useEffect(() => {
     (async () => {

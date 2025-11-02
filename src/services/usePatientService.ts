@@ -1,11 +1,10 @@
 import { appBackend } from '@/api.config';
-import { type IPatient } from '@aafiat/common';
 
 export const usePatientService = () => {
   /**************************************
    ******** Get all patients
    *************************************/
-  const getAllPatients = async (): Promise<IPatient[]> => {
+  const getAllPatients = async () => {
     try {
       const { data } = await appBackend.get('/patient');
       return data;
